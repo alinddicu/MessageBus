@@ -19,7 +19,7 @@
         }
     }
 
-    public class MetronomeTickArgs : EventArgs 
+    public class MetronomeTickArgs : EventArgs
     {
         public MetronomeTickArgs(int count)
         {
@@ -31,9 +31,7 @@
 
     public class Metronome
     {
-        public event TickHandler Tick;
-
-        public delegate void TickHandler(Metronome m, MetronomeTickArgs e);
+        public event EventHandler<MetronomeTickArgs> Tick;
 
         public void Start()
         {
@@ -44,7 +42,7 @@
                 if (Tick != null)
                 {
                     args.Count++;
-                    Tick(this,  args);
+                    Tick(this, args);
                 }
             }
         }
@@ -54,10 +52,10 @@
     {
         public void Subscribe(Metronome m)
         {
-            m.Tick += new Metronome.TickHandler(HeardIt);
+            m.Tick += HeardIt;
         }
 
-        private void HeardIt(Metronome m, MetronomeTickArgs e)
+        private void HeardIt(object m, MetronomeTickArgs e)
         {
             var message = string.Format("HEARD IT! {0} times", e.Count);
             System.Diagnostics.Trace.Write(message + Environment.NewLine);
