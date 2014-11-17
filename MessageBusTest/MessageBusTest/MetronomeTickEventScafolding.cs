@@ -6,6 +6,7 @@
 
     [TestClass]
     // http://www.codeproject.com/Articles/11541/The-Simplest-C-Events-Example-Imaginable
+    // http://msdn.microsoft.com/fr-fr/library/system.eventhandler(v=vs.110).aspx
     public class MetronomeTickEventScafolding
     {
         [TestMethod]
