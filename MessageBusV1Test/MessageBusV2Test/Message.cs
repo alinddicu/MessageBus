@@ -4,12 +4,17 @@
 
     public class Message
     {
-        public Guid Id { get; private set; }
+        public User _sender;
+        public User _receiver;
 
-        public Message()
+        public Message(User sender, User receiver)
         {
             Id = Guid.NewGuid();
+            _sender = sender;
+            _receiver = receiver;
         }
+
+        public Guid Id { get; private set; }
 
         public override bool Equals(object obj)
         {

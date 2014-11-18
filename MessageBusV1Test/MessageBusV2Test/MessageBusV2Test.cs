@@ -8,16 +8,38 @@
     [TestClass]
     public class MessageBusV2Test
     {
+        private static readonly MessageBus MessageBus = new MessageBus();
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            MessageBus.ClearMessages();
+        }
+
         [TestMethod]
         public void WhenUserSendsMessageThenTheMessageBusContainsMessage()
         {
-            var messageBus = new MessageBus();
-            var user = new User(messageBus);
-            var message = new Message();
+            var user = new User(MessageBus);
+            var message = new Message(user, null);
 
             user.SendMessage(message);
 
-            var receivedMessage = messageBus.GetMessages().FirstOrDefault();
+            var receivedMessage = MessageBus.GetMessages().FirstOrDefault();
+            Check.That(receivedMessage).IsNotNull();
+            Check.That(receivedMessage).Equals(message);
+        }
+
+        [TestMethod]
+        public void WhenSenderSendsMessageToReceiverThenReceiverGetsTheMessage()
+        {
+            var sender = new User(MessageBus);
+            var receiver = new User(MessageBus);
+            MessageBus.AddReceiver(receiver);
+            var message = new Message(sender, receiver);
+
+            sender.SendMessage(message);
+
+            var receivedMessage = receiver.GetMessages().FirstOrDefault();
             Check.That(receivedMessage).IsNotNull();
             Check.That(receivedMessage).Equals(message);
         }
