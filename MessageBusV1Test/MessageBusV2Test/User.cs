@@ -10,10 +10,13 @@
 
         public User(MessageBus messageBus)
         {
+            Id = Guid.NewGuid();
             _messageBus = messageBus;
             _messages = new List<Message>();
             Send += _messageBus.Handle;
         }
+
+        public Guid Id { get; private set; }
 
         public event EventHandler<MessageSentArgs> Send;
 
@@ -27,12 +30,41 @@
 
         public void ReceiveMessage(object sender, MessageSentArgs args)
         {
-            _messages.Add(args.Message);
+            var message = args.Message;
+            if (message.Receiver == this)
+            {
+                _messages.Add(message);
+            }
         }
 
         public IEnumerable<Message> GetMessages()
         {
             return _messages;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(obj, null))
+            {
+                return false;
+            }
+
+            return this.Equals(obj as User);
+        }
+
+        protected bool Equals(User otherUser)
+        {
+            return Id == otherUser.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
     }
 }

@@ -4,17 +4,18 @@
 
     public class Message
     {
-        public User _sender;
-        public User _receiver;
+        private User _sender;
 
         public Message(User sender, User receiver)
         {
             Id = Guid.NewGuid();
             _sender = sender;
-            _receiver = receiver;
+            Receiver = receiver;
         }
 
         public Guid Id { get; private set; }
+
+        public User Receiver { get; private set; }
 
         public override bool Equals(object obj)
         {
@@ -23,17 +24,22 @@
                 return true;
             }
 
-            if (ReferenceEquals(this, null))
+            if (ReferenceEquals(obj, null))
             {
                 return false;
             }
 
-            return base.Equals(obj as Message);
+            return this.Equals(obj as Message);
         }
 
         protected bool Equals(Message message)
         {
             return Equals(this.Id, message.Id);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
     }
 }

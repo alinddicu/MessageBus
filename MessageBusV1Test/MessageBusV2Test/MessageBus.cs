@@ -25,6 +25,11 @@
             if (!_messages.Contains(message))
             {
                 _messages.Add(message);
+                if (Distribute == null)
+                {
+                    return;
+                }
+
                 Distribute(this, new MessageSentArgs(message));
             }
         }
@@ -37,6 +42,19 @@
         public void ClearMessages()
         {
             _messages.Clear();
+        }
+
+        public void ClearReceivers()
+        {
+            if (Distribute == null)
+            {
+                return;
+            }
+
+            foreach (dynamic deleg in Distribute.GetInvocationList())
+            {
+                Distribute -= deleg;
+            }
         }
     }
 }

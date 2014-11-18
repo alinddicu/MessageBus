@@ -14,6 +14,7 @@
         public void Initialize()
         {
             MessageBus.ClearMessages();
+            MessageBus.ClearReceivers();
         }
 
         [TestMethod]
@@ -42,6 +43,26 @@
             var receivedMessage = receiver.GetMessages().FirstOrDefault();
             Check.That(receivedMessage).IsNotNull();
             Check.That(receivedMessage).Equals(message);
+        }
+
+        [TestMethod]
+        public void WhenSenderSendsMessageToReceiver1ThenOnlyReceiver1GetsTheMessage()
+        {
+            var sender = new User(MessageBus);
+            var receiver1 = new User(MessageBus);
+            var receiver2 = new User(MessageBus);
+            MessageBus.AddReceiver(receiver1);
+            MessageBus.AddReceiver(receiver2);
+            var message = new Message(sender, receiver1);
+
+            sender.SendMessage(message);
+
+            var receivedMessage = receiver1.GetMessages().FirstOrDefault();
+            Check.That(receivedMessage).IsNotNull();
+            Check.That(receivedMessage).Equals(message);
+
+            var receivedMessage2 = receiver2.GetMessages().FirstOrDefault();
+            Check.That(receivedMessage2).IsNull();
         }
     }
 }
