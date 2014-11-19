@@ -14,7 +14,6 @@
         public void Initialize()
         {
             MessageBus.ClearMessages();
-            MessageBus.ClearReceivers();
         }
 
         [TestMethod]

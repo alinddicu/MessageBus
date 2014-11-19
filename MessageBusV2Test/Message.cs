@@ -29,10 +29,10 @@
                 return false;
             }
 
-            return this.Equals(obj as Message);
+            return Equals(obj as Message);
         }
 
-        protected bool Equals(Message message)
+        private bool Equals(Message message)
         {
             return Equals(this.Id, message.Id);
         }

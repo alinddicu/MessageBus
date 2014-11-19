@@ -27,9 +27,10 @@
                 _messages.Add(message);
                 if (message.Receiver != null)
                 {
-                    Distribute += message.Receiver.ReceiveMessage;
+                    EventHandler<MessageSentArgs> receiverHandle = message.Receiver.ReceiveMessage;
+                    Distribute += receiverHandle;
                     Distribute(this, new MessageSentArgs(message));
-                    ClearReceivers();
+                    Distribute -= receiverHandle;
                 }
             }
         }
@@ -37,19 +38,6 @@
         public void ClearMessages()
         {
             _messages.Clear();
-        }
-
-        public void ClearReceivers()
-        {
-            if (Distribute == null)
-            {
-                return;
-            }
-
-            foreach (dynamic deleg in Distribute.GetInvocationList())
-            {
-                Distribute -= deleg;
-            }
         }
     }
 }
