@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C7D450E5-08B3-4831-8383-BA5AB06E7FA5}</ProjectGuid>
+    <ProjectGuid>{6C1DDF84-9FB8-4D8F-BA34-8B62A57131A4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MessageBusTest</RootNamespace>
-    <AssemblyName>MessageBusTest</AssemblyName>
+    <RootNamespace>Scaffolding</RootNamespace>
+    <AssemblyName>Scaffolding</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NFluent">
-      <HintPath>..\packages\NFluent.1.3.1.0\lib\net40\NFluent.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -53,16 +50,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="TextContent.cs" />
-    <Compile Include="Message.cs" />
-    <Compile Include="MessageBus.cs" />
-    <Compile Include="MessageBusTest.cs" />
-    <Compile Include="MessageContent.cs" />
+    <Compile Include="MetronomeTickEventScafolding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Speaker.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

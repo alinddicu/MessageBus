@@ -35,7 +35,6 @@
         {
             var sender = new User(MessageBus);
             var receiver = new User(MessageBus);
-            MessageBus.AddReceiver(receiver);
             var message = new Message(sender, receiver);
 
             sender.SendMessage(message);
@@ -51,8 +50,6 @@
             var sender = new User(MessageBus);
             var receiver1 = new User(MessageBus);
             var receiver2 = new User(MessageBus);
-            MessageBus.AddReceiver(receiver1);
-            MessageBus.AddReceiver(receiver2);
             var message = new Message(sender, receiver1);
 
             sender.SendMessage(message);

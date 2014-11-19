@@ -31,7 +31,7 @@
         public void ReceiveMessage(object sender, MessageSentArgs args)
         {
             var message = args.Message;
-            if (message.Receiver == this)
+            if (!_messages.Contains(message))
             {
                 _messages.Add(message);
             }

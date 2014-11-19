@@ -1,4 +1,4 @@
-﻿namespace MessageBusTest
+﻿namespace Scaffolding
 {
     using System;
     using System.Threading;
@@ -10,6 +10,7 @@
     public class MetronomeTickEventScafolding
     {
         [TestMethod]
+        [Ignore]
         public void ViewMetronomeEventTickPropagation()
         {
             Metronome m = new Metronome();

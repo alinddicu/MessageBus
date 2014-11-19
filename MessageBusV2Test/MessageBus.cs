@@ -25,18 +25,13 @@
             if (!_messages.Contains(message))
             {
                 _messages.Add(message);
-                if (Distribute == null)
+                if (message.Receiver != null)
                 {
-                    return;
+                    Distribute += message.Receiver.ReceiveMessage;
+                    Distribute(this, new MessageSentArgs(message));
+                    ClearReceivers();
                 }
-
-                Distribute(this, new MessageSentArgs(message));
             }
-        }
-
-        public void AddReceiver(User receiver)
-        {
-            Distribute += receiver.ReceiveMessage;
         }
 
         public void ClearMessages()
